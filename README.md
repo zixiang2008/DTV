@@ -1,85 +1,178 @@
-# 泰国 DTV 签证完全指南 (DTV Visa Guide)
+<p align="center">
+  <img src="https://img.shields.io/badge/🇹🇭_Thailand-DTV_Visa_Guide-FFD700?style=for-the-badge&labelColor=003DA5" alt="DTV Visa Guide">
+</p>
 
-此项目是一个提供泰国 Destination Thailand Visa (DTV) 相关信息、办理流程、教程案例及问答的综合性网站系统。包含完整的用户登录注册、知识库、留言互动等功能，后端采用 Node.js (Express) 和 SQLite 数据库构建。
+<h1 align="center">泰国 DTV 签证完全办理指南</h1>
 
-## 🎯 项目特点
+<p align="center">
+  <strong>Destination Thailand Visa — 数字游民 · 远程工作者 · 泰国文化爱好者的首选签证</strong>
+</p>
 
-- **前后端分离结构**：后端提供 REST API（`server.js`），前端为原生 HTML/JS/CSS（位于 `public/` 目录），方便维护。
-- **内置安全保护**：集成 `helmet`，`express-rate-limit`（防刷请求），密码使用 `bcrypt` 哈希，支持 JWT 验证。
-- **本地知识图谱**：采用轻量且高性能的 SQLite 数据库 (`dtv.db`)，内置常见问题、教程案例数据库。
-- **长期稳定运行**：代码逻辑包含对 Express 5.x 路由及同步数据库故障的容错处理，极大提升了服务稳定性。
+<p align="center">
+  <img src="https://img.shields.io/badge/Node.js-≥18.0-339933?style=flat-square&logo=node.js" alt="Node.js">
+  <img src="https://img.shields.io/badge/Express-v4-000000?style=flat-square&logo=express" alt="Express">
+  <img src="https://img.shields.io/badge/SQLite-sql.js-003B57?style=flat-square&logo=sqlite" alt="SQLite">
+  <img src="https://img.shields.io/badge/Deploy-Netlify-00C7B7?style=flat-square&logo=netlify" alt="Netlify">
+  <img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="License">
+</p>
 
-## 📂 核心目录结构
+<p align="center">
+  <a href="https://th-dtv.netlify.app">🌐 在线访问</a> ·
+  <a href="https://th-dtv.netlify.app/admin">🔧 管理后台</a> ·
+  <a href="#快速开始">📖 快速开始</a>
+</p>
 
-```text
-DTV/
-├── public/                 # 前端资源目录 (HTML, CSS, JS)
-│   ├── index.html          # 主页视图
-│   ├── admin.html          # 后台管理面板视图
-│   ├── script.js           # 前端交互逻辑
-│   ├── styles.css          # 前端样式组件
-│   └── i18n.js             # 国际化语言支持脚本
-├── server.js               # Node.js 后端主服务代码
-├── seed-content.js         # 初始数据填充脚本
-├── ecosystem.config.js     # PM2 进程守护配置文件 (用于长效运行)
-├── start.bat               # Windows 环境快速启动辅助脚本
-├── package.json            # 项目依赖描述
-└── dtv.db                  # (自动生成) SQLite 数据库文件
+---
+
+## ✨ 系统亮点
+
+| 特性 | 描述 |
+|------|------|
+| 🏛️ **全面签证指南** | 涵盖签证概览、申请资格、所需材料、办理流程、费用明细 |
+| 📚 **智能知识库** | 20+ 精选 FAQ，支持关键词搜索，按类别分组 |
+| 🎬 **实战案例库** | 30+ 来自 YouTube / X / 小红书 的真实申请经验 |
+| 💬 **用户留言系统** | 支持注册登录、发评论、嵌套回复 |
+| 🔧 **CMS 管理后台** | 板块管理、案例编辑、知识库维护、用户管理 |
+| 🔒 **安全架构** | Helmet + JWT + bcrypt + Rate Limiting |
+| 🌐 **中英双语** | i18n 国际化支持 |
+
+---
+
+## 🖼️ 系统截图
+
+### 首页 — 签证概览
+```
+┌─────────────────────────────────────────┐
+│  🇹🇭 泰国 DTV 签证 完全办理指南        │
+│                                         │
+│  5年 · 180天 · 多次入境 · ≈ ¥2,300      │
+│                                         │
+│  🔍 搜索DTV签证知识库...                │
+│                                         │
+│  ├── 📋 签证概览    ├── 📑 所需材料     │
+│  ├── ✅ 申请资格    ├── 🔄 办理流程     │
+│  ├── 💰 费用明细    ├── 🎬 教程案例     │
+│  ├── ❓ 常见问题    └── 💬 用户留言     │
+└─────────────────────────────────────────┘
 ```
 
-## 🛠️ 如何启动和安装
+---
 
-### 1. 安装环境依赖
+## 🏗️ 技术架构
 
-确保您的计算机上已经安装了 Node.js (推荐 v20 以上环境)。在项目根目录下，执行：
+```
+DTV/
+├── server.js              # Express 主服务 (REST API + 静态文件)
+├── database.js            # sql.js 兼容层 (支持本地/Serverless)
+├── seed-content.js        # 国际化内容数据
+├── netlify.toml           # Netlify 部署配置
+├── netlify/
+│   └── functions/
+│       └── api.js         # Serverless Function 入口
+├── public/
+│   ├── index.html         # 前台主页 (SPA)
+│   ├── admin.html         # 管理后台
+│   ├── css/               # 样式文件
+│   └── js/                # 客户端逻辑
+└── package.json
+```
+
+### 核心技术栈
+
+| 层级 | 技术 | 作用 |
+|------|------|------|
+| **后端** | Node.js + Express | RESTful API 服务 |
+| **数据库** | sql.js (纯 JS SQLite) | 零依赖数据持久化 |
+| **认证** | JWT + bcrypt | 无状态令牌认证 |
+| **安全** | Helmet + Rate Limiting | HTTP 安全头 + 频率限制 |
+| **压缩** | Gzip (compression) | 响应体压缩 |
+| **部署** | Netlify Functions | Serverless 自动部署 |
+
+---
+
+## 🚀 快速开始
+
+### 本地开发
 
 ```bash
+# 1. 克隆仓库
+git clone https://github.com/zixiang2008/DTV.git
+cd DTV
+
+# 2. 安装依赖
 npm install
+
+# 3. 启动开发服务器
+node server.js
 ```
 
-### 2. 启动方式 (推荐)
+服务启动后访问：
+- 🌐 前台：http://localhost:4000
+- 🔧 管理后台：http://localhost:4000/admin
+- 🔑 默认管理员：`admin` / `admin123`
 
-项目内提供多种启动方式，可根据具体环境选择：
+### Netlify 部署
 
-- **普通开发启动** (Windows快捷方式)：
-  双击目录下的 `start.bat` 文件，服务器将自动启动。
+项目已配置 GitHub → Netlify 自动部署，每次推送到 `main` 分支即自动触发构建。
 
-- **命令行启动**：
-  ```bash
-  npm start
-  # 或者输入
-  node server.js
-  ```
+手动部署：
+```bash
+npx netlify-cli deploy --prod
+```
 
-- **服务器长期稳定部署 (使用 PM2)**：
-  如果需要 7x24 小时无人值守运行（断网恢复、奔溃自动重启），建议使用 PM2：
-  ```bash
-  npm install -g pm2
-  pm2 start ecosystem.config.js --env production
-  pm2 save
-  pm2 startup
-  ```
+---
 
-服务器启动后，控制台会显示：
-✅ `🇹🇭 DTV签证指南服务器运行中: http://localhost:4000`
+## 📡 API 文档
 
-### 3. 数据初始化
+### 公开接口
 
-项目首次运行 `server.js` 时，会自动创建 `dtv.db`，并包含默认的测试用例和知识库内容。无需手动执行数据库构建脚本。
+| 方法 | 路径 | 描述 |
+|------|------|------|
+| `GET` | `/api/knowledge` | 获取知识库 (`?q=关键词` 搜索) |
+| `GET` | `/api/cases` | 获取案例 (`?platform=youtube&q=`) |
+| `GET` | `/api/sections` | 获取板块配置 |
+| `GET` | `/api/comments` | 获取留言列表 |
+| `GET` | `/api/settings/:key` | 读取设置项 |
+| `POST` | `/api/register` | 用户注册 |
+| `POST` | `/api/login` | 用户登录 |
+| `POST` | `/api/logout` | 退出登录 |
+| `GET` | `/api/me` | 获取当前用户信息 |
+| `POST` | `/api/comments` | 发表留言 (需登录) |
 
-## 🛑 常见问题及排障
+### 管理接口 (需 Admin 权限)
 
-**Q1：页面出现连接拒绝 (ERR_CONNECTION_REFUSED) 或者 API 调用挂起？**
-A：在此次代码更新中，修复了由于 Express 5 在部分环境遇到未兼容的 `*path` 全局路由捕获语法时导致的致命崩溃 (Crash) 缺陷。此版本已变更为标准 `app.use()` 挂载静态文件流回调。如果问题再现，推荐查阅终端报错日志 (`pm2 logs`) 或检查您所在环境防火墙端口 4000 组策略。
+| 方法 | 路径 | 描述 |
+|------|------|------|
+| `GET/PUT` | `/api/admin/sections/:id` | 板块管理 |
+| `GET/POST/PUT/DELETE` | `/api/admin/cases/:id` | 案例管理 |
+| `GET/POST/PUT/DELETE` | `/api/admin/knowledge/:id` | 知识库管理 |
+| `GET/PUT/DELETE` | `/api/admin/comments/:id` | 留言审核 |
+| `GET/PUT` | `/api/admin/settings/:key` | 系统设置 |
+| `GET` | `/api/admin/users` | 用户列表 |
 
-**Q2：如何更改运行端口？**
-A：服务器默认使用 `4000` 端口。你可以直接修改 `server.js` 第 12 行的 `PORT` 常量，或者在运行前设置环境变量 `PORT`，如果你使用 pm2 请同步修改 `ecosystem.config.js` 的映射段。
+---
 
-## 🔒 默认管理凭证
+## 🔐 安全特性
 
-项目已自动生成的默认管理凭证：
-- **后台地址**：`http://localhost:4000/admin`
-- **账号**: `admin`
-- **密码**: `admin123`
+- **bcrypt 密码哈希** — 10 轮加盐哈希，安全存储用户密码
+- **JWT 令牌认证** — 7 天过期，HttpOnly Cookie 防 XSS
+- **Helmet 安全头** — 自动设置 X-Frame-Options、HSTS 等
+- **Rate Limiting** — 认证接口 15 分钟 20 次限制，防暴力破解
+- **Gzip 压缩** — 减少传输体积，加速页面加载
+- **输入验证** — 留言长度限制 (1000 字)、密码最低 6 位
 
-请在项目成功部署且稳定外网公开后，及时在后台或数据库中修改默认管理员密码。
+---
+
+## 🌐 在线地址
+
+| 环境 | 地址 |
+|------|------|
+| 🌍 **生产环境** | [th-dtv.netlify.app](https://th-dtv.netlify.app) |
+| 🔧 **管理后台** | [th-dtv.netlify.app/admin](https://th-dtv.netlify.app/admin) |
+| 📦 **GitHub** | [github.com/zixiang2008/DTV](https://github.com/zixiang2008/DTV) |
+
+---
+
+## 📄 License
+
+MIT © 2025 DTV Visa Guide
