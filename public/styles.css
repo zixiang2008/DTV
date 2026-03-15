@@ -2231,3 +2231,369 @@ section {
     margin-top: 0.5rem;
   }
 }
+
+/* ========================================
+   RESPONSIVE — Tablet (≤ 1024px)
+   ======================================== */
+@media (max-width: 1024px) {
+  .nav-links {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Side menu when hamburger is active */
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100vh;
+    background: rgba(10, 14, 39, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 5rem 2rem 2rem;
+    z-index: 999;
+    gap: 0.5rem;
+    border-left: 1px solid var(--border-subtle);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+    animation: slideIn 0.3s ease;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+    }
+
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  .nav-links.open a {
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .nav-links.open a:hover {
+    background: rgba(255, 216, 77, 0.1);
+  }
+
+  .nav-overlay.active {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+  }
+
+  .eligibility-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========================================
+   RESPONSIVE — Mobile (≤ 768px)
+   ======================================== */
+@media (max-width: 768px) {
+
+  /* ---- Navigation ---- */
+  .nav-right .lang-switch-btn {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.5rem;
+  }
+
+  #auth-buttons {
+    display: none;
+  }
+
+  #user-menu .btn {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .navbar {
+    padding: 0.6rem 0;
+  }
+
+  .nav-logo {
+    font-size: 1rem;
+  }
+
+  .nav-logo .logo-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+
+  /* ---- Hero ---- */
+  .hero {
+    min-height: auto;
+    padding: 6rem 0 3rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .hero-stat .value {
+    font-size: 1.3rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ---- Search Box ---- */
+  .search-box {
+    margin-bottom: 1.5rem;
+  }
+
+  .search-input-wrap input {
+    font-size: 0.9rem;
+  }
+
+  /* ---- Sections ---- */
+  section {
+    padding: clamp(2rem, 6vw, 4rem) 0;
+  }
+
+  .section-title {
+    font-size: clamp(1.4rem, 5vw, 2rem);
+  }
+
+  .section-subtitle {
+    font-size: 0.92rem;
+    margin-bottom: 2rem;
+  }
+
+  /* ---- Grids → Single column ---- */
+  .overview-grid,
+  .docs-grid,
+  .fees-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .eligibility-cards {
+    grid-template-columns: 1fr;
+  }
+
+  /* ---- Cards ---- */
+  .overview-card,
+  .eligibility-card,
+  .fee-card {
+    padding: 1.5rem;
+  }
+
+  /* ---- Timeline ---- */
+  .timeline-item {
+    padding-left: 58px;
+  }
+
+  .timeline::before {
+    left: 20px;
+  }
+
+  .timeline-number {
+    left: 0;
+    width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+  }
+
+  .timeline-content {
+    padding: 1.2rem;
+  }
+
+  /* ---- Cases ---- */
+  .cases-filter {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .filter-btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .cases-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* ---- FAQ ---- */
+  .faq-question {
+    font-size: 0.95rem;
+    padding: 1rem 1.2rem;
+  }
+
+  .faq-answer {
+    padding: 0 1.2rem 1rem;
+    font-size: 0.88rem;
+  }
+
+  /* ---- Notes ---- */
+  .note-card {
+    padding: 1rem 1.2rem;
+  }
+
+  /* ---- Comments ---- */
+  .comment-form-footer {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  /* ---- CTA ---- */
+  .cta-box {
+    padding: 2rem 1.5rem;
+  }
+
+  .cta-box h2 {
+    font-size: 1.4rem;
+  }
+
+  /* ---- Footer ---- */
+  .footer .container>div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .footer-brand,
+  .footer-links {
+    width: 100%;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  /* ---- Buttons ---- */
+  .btn {
+    padding: 0.75rem 1.4rem;
+    font-size: 0.9rem;
+  }
+
+  .btn-sm {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  /* ---- Modals ---- */
+  .modal {
+    width: 92vw;
+    max-width: 400px;
+    padding: 1.5rem;
+  }
+}
+
+/* ========================================
+   RESPONSIVE — Small Mobile (≤ 480px)
+   ======================================== */
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  .hero h1 {
+    font-size: 1.6rem;
+  }
+
+  .hero-stats {
+    gap: 0.8rem;
+  }
+
+  .hero-stat .value {
+    font-size: 1.1rem;
+  }
+
+  .hero-stat .label {
+    font-size: 0.72rem;
+  }
+
+  .fee-amount {
+    font-size: 1.6rem;
+  }
+
+  .overview-card,
+  .eligibility-card {
+    padding: 1.2rem;
+  }
+
+  .doc-item {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .timeline-item {
+    padding-left: 48px;
+  }
+
+  .timeline-number {
+    width: 30px;
+    height: 30px;
+    font-size: 0.75rem;
+  }
+
+  .timeline::before {
+    left: 15px;
+  }
+
+  .nav-links.open {
+    width: 100%;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+/* ========================================
+   Touch-friendly: larger tap targets
+   ======================================== */
+@media (hover: none) and (pointer: coarse) {
+  .btn {
+    min-height: 44px;
+  }
+
+  .faq-question {
+    min-height: 48px;
+  }
+
+  .nav-links a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .filter-btn {
+    min-height: 40px;
+  }
+}
