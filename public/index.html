@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>泰国DTV签证完全指南 | Destination Thailand Visa 办理攻略</title>
+  <meta name="description" content="最全面的泰国DTV签证办理指南。含知识库搜索、30+教程案例、在线问答。了解申请流程、所需材料、费用明细。">
+  <meta name="keywords" content="DTV签证, 泰国签证, 数字游民签证, Destination Thailand Visa, 泰国长期签证, 远程工作签证">
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="泰国DTV签证完全指南 | 2024-2025最新攻略">
+  <meta property="og:description" content="5年多次入境签证，每次可停留180天。含30+真实案例、知识库搜索、费用计算。">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="泰国DTV签证完全指南">
+  <meta name="twitter:description" content="数字游民、远程工作者的泰国长期签证办理攻略">
+
+  <!-- Performance: Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇹🇭</text></svg>">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "泰国DTV签证完全指南",
+    "description": "最全面的泰国DTV签证办理指南，含知识库搜索、30+教程案例",
+    "url": "https://dtv-guide.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://dtv-guide.com/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="nav-logo">
+        <span class="logo-icon">🇹🇭</span>
+        <span data-i18n="nav_logo_text">DTV签证指南</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#overview" data-i18n="nav_overview">签证概览</a></li>
+        <li><a href="#eligibility" data-i18n="nav_eligibility">申请资格</a></li>
+        <li><a href="#documents" data-i18n="nav_documents">所需材料</a></li>
+        <li><a href="#process" data-i18n="nav_process">办理流程</a></li>
+        <li><a href="#fees" data-i18n="nav_fees">费用明细</a></li>
+        <li><a href="#cases" data-i18n="nav_cases">教程案例</a></li>
+        <li><a href="#faq" data-i18n="nav_faq">常见问题</a></li>
+        <li><a href="#comments-section" data-i18n="nav_comments">留言区</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="lang-switch-btn" id="lang-btn" onclick="toggleLang()">🌐 EN</button>
+        <div id="auth-buttons">
+          <button class="btn btn-outline btn-sm" onclick="showModal('login')" data-i18n="btn_login">登录</button>
+          <button class="btn btn-primary btn-sm" onclick="showModal('register')" data-i18n="btn_register">注册</button>
+        </div>
+        <div id="user-menu" style="display:none;">
+          <span class="user-greeting">👋 <span id="username-display"></span></span>
+          <button class="btn btn-outline btn-sm" onclick="logout()" data-i18n="btn_logout">退出</button>
+        </div>
+        <button class="hamburger" aria-label="菜单">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-overlay"></div>
+
+  <!-- Auth Modals -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal()"></div>
+  <div class="modal" id="login-modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3 data-i18n="modal_login_title">🔑 用户登录</h3>
+    <form id="login-form" onsubmit="handleLogin(event)">
+      <input type="text" id="login-input" data-i18n="modal_login_input" placeholder="用户名或邮箱" required>
+      <input type="password" id="login-password" data-i18n="modal_login_password" placeholder="密码" required>
+      <div class="form-error" id="login-error"></div>
+      <button type="submit" class="btn btn-primary" style="width:100%" data-i18n="modal_login_submit">登录</button>
+      <p class="form-switch"><span data-i18n="modal_login_switch">没有账号？</span><a href="#"
+          onclick="showModal('register')" data-i18n="modal_login_switch_link">立即注册</a></p>
+    </form>
+  </div>
+  <div class="modal" id="register-modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3 data-i18n="modal_register_title">📝 用户注册</h3>
+    <form id="register-form" onsubmit="handleRegister(event)">
+      <input type="text" id="reg-username" data-i18n="modal_register_username" placeholder="用户名" required minlength="2">
+      <input type="email" id="reg-email" data-i18n="modal_register_email" placeholder="邮箱" required>
+      <input type="password" id="reg-password" data-i18n="modal_register_password" placeholder="密码 (至少6位)" required
+        minlength="6">
+      <div class="form-error" id="register-error"></div>
+      <button type="submit" class="btn btn-primary" style="width:100%" data-i18n="modal_register_submit">注册</button>
+      <p class="form-switch"><span data-i18n="modal_register_switch">已有账号？</span><a href="#"
+          onclick="showModal('login')" data-i18n="modal_register_switch_link">去登录</a></p>
+    </form>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="particles"></div>
+    <div class="container hero-content">
+      <div class="hero-badge" data-i18n="hero_badge">2024-2025 最新政策</div>
+      <h1><span data-i18n="hero_title_1">泰国 </span><span class="gradient-text" data-i18n="hero_title_highlight">DTV
+          签证</span><br><span data-i18n="hero_title_2">完全办理指南</span></h1>
+      <p class="hero-desc" data-i18n="hero_desc">
+        Destination Thailand Visa（DTV）是泰国于2024年7月推出的全新5年多次入境签证，
+        专为数字游民、远程工作者及泰国文化爱好者打造，每次入境可停留长达180天。
+      </p>
+
+      <!-- Knowledge Search Box -->
+      <div class="search-box reveal">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="global-search" data-i18n="search_placeholder"
+            placeholder="搜索DTV签证知识库... 例如：存款要求、延期、软实力" autocomplete="off">
+          <button class="search-clear" id="search-clear" onclick="clearSearch()" style="display:none">✕</button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="value" data-i18n="stat_validity">5 年</span>
+          <span class="label" data-i18n="stat_validity_label">签证有效期</span>
+        </div>
+        <div class="hero-stat">
+          <span class="value" data-i18n="stat_stay">180 天</span>
+          <span class="label" data-i18n="stat_stay_label">每次入境可停留</span>
+        </div>
+        <div class="hero-stat">
+          <span class="value" data-i18n="stat_entry">多次入境</span>
+          <span class="label" data-i18n="stat_entry_label">不限入境次数</span>
+        </div>
+        <div class="hero-stat">
+          <span class="value" data-i18n="stat_fee">≈ ¥2,300</span>
+          <span class="label" data-i18n="stat_fee_label">签证申请费</span>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <a href="#process" class="btn btn-primary" data-i18n="cta_process">📋 查看办理流程</a>
+        <a href="#cases" class="btn btn-outline" data-i18n="cta_cases">🎬 教程案例</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overview Section -->
+  <section id="overview">
+    <div class="container">
+      <h2 class="section-title reveal" data-i18n="overview_title">什么是 DTV 签证？</h2>
+      <p class="section-subtitle reveal" data-i18n="overview_subtitle">Destination Thailand Visa
+        是泰国政府为吸引全球人才和文化交流而推出的创新签证类型</p>
+      <div class="overview-grid">
+        <div class="overview-card reveal reveal-delay-1">
+          <div class="card-icon">🌏</div>
+          <h3 data-i18n="overview_card1_title">5年多次入境</h3>
+          <p data-i18n="overview_card1_desc">DTV签证有效期长达5年，持证人可在此期间不限次数出入泰国，无需每次重新申请签证，极其便利。</p>
+        </div>
+        <div class="overview-card reveal reveal-delay-2">
+          <div class="card-icon">💼</div>
+          <h3 data-i18n="overview_card2_title">远程工作合法化</h3>
+          <p data-i18n="overview_card2_desc">DTV签证允许持有者在泰国进行远程工作，为海外雇主提供服务，但不可受雇于泰国本地公司或向泰国客户开具发票。</p>
+        </div>
+        <div class="overview-card reveal reveal-delay-3">
+          <div class="card-icon">🏖️</div>
+          <h3 data-i18n="overview_card3_title">最长近一年停留</h3>
+          <p data-i18n="overview_card3_desc">每次入境可停留180天，并可在泰国境内延期一次180天，最长可连续停留约360天，之后需出境再入境。</p>
+        </div>
+        <div class="overview-card reveal reveal-delay-4">
+          <div class="card-icon">👨‍👩‍👧</div>
+          <h3 data-i18n="overview_card4_title">携带家属</h3>
+          <p data-i18n="overview_card4_desc">DTV签证持有者的合法配偶及20岁以下子女可作为随行家属一同申请，提供关系证明即可。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Eligibility Section (Dynamic) -->
+  <section id="eligibility" style="background: var(--bg-secondary);">
+    <div class="container">
+      <h2 class="section-title reveal" data-i18n="elig_title">谁可以申请 DTV 签证？</h2>
+      <p class="section-subtitle reveal" data-i18n="elig_subtitle">DTV签证主要面向三大类人群，申请人需年满20岁且无泰国签证逾期记录</p>
+      <div class="eligibility-cards" id="elig-cards">
+        <!-- Built by i18n.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Documents Section (Dynamic) -->
+  <section id="documents">
+    <div class="container">
+      <h2 class="section-title reveal" data-i18n="docs_title">所需申请材料</h2>
+      <p class="section-subtitle reveal" data-i18n="docs_subtitle">请在申请前仔细准备以下材料，所有文件需为英文或泰文，其他语言需提供官方翻译</p>
+      <div class="docs-grid" id="docs-grid">
+        <!-- Built by i18n.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section (Dynamic) -->
+  <section id="process" style="background: var(--bg-secondary);">
+    <div class="container">
+      <h2 class="section-title reveal" data-i18n="process_title">办理流程</h2>
+      <p class="section-subtitle reveal" data-i18n="process_subtitle">DTV签证可通过泰国电子签证官网在线申请，或前往泰国驻外使领馆现场办理</p>
+      <div class="timeline" id="process-timeline">
+        <!-- Built by i18n.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Fees Section (Dynamic) -->
+  <section id="fees">
+    <div class="container">
+      <h2 class="section-title reveal" data-i18n="fees_title">费用明细</h2>
+      <p class="section-subtitle reveal" data-i18n="fees_subtitle">以下为DTV签证相关的费用参考，实际金额可能因使领馆而异</p>
+      <div class="fees-grid" id="fees-grid">
+        <!-- Built by i18n.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Cases Section -->
+  <section id="cases" style="background: var(--bg-secondary);">
+    <div class="container">
+      <h2 class="section-title reveal" data-i18n="cases_title">📚 教程案例</h2>
+      <p class="section-subtitle reveal" data-i18n="cases_subtitle">来自YouTube、X(Twitter)和小红书的30+真实申请案例和经验分享</p>
+
+      <!-- Platform filter tabs -->
+      <div class="cases-filter reveal">
+        <button class="filter-btn active" data-platform="all" onclick="filterCases('all', this)"
+          data-i18n="filter_all">全部</button>
+        <button class="filter-btn" data-platform="youtube" onclick="filterCases('youtube', this)">
+          <span class="platform-icon">▶️</span> YouTube
+        </button>
+        <button class="filter-btn" data-platform="x" onclick="filterCases('x', this)">
+          <span class="platform-icon">𝕏</span> X / Twitter
+        </button>
+        <button class="filter-btn" data-platform="xiaohongshu" onclick="filterCases('xiaohongshu', this)">
+          <span class="platform-icon">📕</span> <span data-i18n="filter_xiaohongshu">小红书</span>
+        </button>
+      </div>
+
+      <!-- Cases search -->
+      <div class="cases-search reveal">
+        <input type="text" id="cases-search-input" data-i18n="cases_search_placeholder" placeholder="搜索案例关键词..."
+          oninput="searchCases()">
+      </div>
+
+      <div class="cases-grid" id="cases-grid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Important Notes Section (Dynamic) -->
+  <section id="notes">
+    <div class="container">
+      <h2 class="section-title reveal" data-i18n="notes_title">重要注意事项</h2>
+      <p class="section-subtitle reveal" data-i18n="notes_subtitle">在申请和使用DTV签证前，请务必了解以下关键信息</p>
+      <div class="notes-container" id="notes-container">
+        <!-- Built by i18n.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section (Dynamic) -->
+  <section id="faq" style="background: var(--bg-secondary);">
+    <div class="container">
+      <h2 class="section-title reveal" data-i18n="faq_title">常见问题解答</h2>
+      <p class="section-subtitle reveal" data-i18n="faq_subtitle">以下整理了关于DTV签证最常被问到的问题</p>
+      <div class="faq-container" id="faq-container">
+        <!-- Built by i18n.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Comments Section -->
+  <section id="comments-section">
+    <div class="container">
+      <h2 class="section-title reveal" data-i18n="comments_title">💬 用户留言</h2>
+      <p class="section-subtitle reveal" data-i18n="comments_subtitle">分享您的DTV签证申请经验或提出问题，帮助更多人</p>
+
+      <div class="comment-form-wrap reveal" id="comment-form-wrap">
+        <div id="comment-login-prompt" class="comment-login-prompt">
+          <p data-i18n-html="comment_login_prompt">请先 <a href="#" onclick="showModal('login')">登录</a> 或 <a href="#"
+              onclick="showModal('register')">注册</a>
+            后发表留言</p>
+        </div>
+        <form id="comment-form" style="display:none" onsubmit="postComment(event)">
+          <textarea id="comment-input" data-i18n="comment_placeholder" placeholder="写下您的留言、问题或经验分享..." maxlength="1000"
+            rows="3"></textarea>
+          <div class="comment-form-footer">
+            <span class="char-count"><span id="char-count">0</span>/1000</span>
+            <button type="submit" class="btn btn-primary btn-sm" data-i18n="comment_submit">发表留言</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="comments-list" id="comments-list">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box reveal">
+        <h2><span data-i18n="cta_title_1">准备好开始申请了吗？</span><br><span class="gradient-text"
+            data-i18n="cta_title_2">开启您的泰国之旅 🌴</span></h2>
+        <p data-i18n="cta_desc">前往泰国官方电子签证网站，开始您的DTV签证申请之旅</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="https://www.thaievisa.go.th/" target="_blank" rel="noopener noreferrer" class="btn btn-primary"
+            data-i18n="cta_btn_official">🌐
+            泰国电子签证官网</a>
+          <a href="#hero" class="btn btn-outline" data-i18n="cta_btn_top">⬆️ 回到顶部</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo"><span class="logo-icon">🇹🇭</span><span
+              data-i18n="nav_logo_text">DTV签证指南</span></a>
+          <p data-i18n="footer_brand_desc">为中文用户提供最全面、最准确的泰国DTV签证办理信息。</p>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="footer_nav_title">快速导航</h4>
+          <ul>
+            <li><a href="#overview" data-i18n="nav_overview">签证概览</a></li>
+            <li><a href="#eligibility" data-i18n="nav_eligibility">申请资格</a></li>
+            <li><a href="#documents" data-i18n="nav_documents">所需材料</a></li>
+            <li><a href="#process" data-i18n="nav_process">办理流程</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="footer_more_title">更多</h4>
+          <ul>
+            <li><a href="#fees" data-i18n="nav_fees">费用明细</a></li>
+            <li><a href="#cases" data-i18n="nav_cases">教程案例</a></li>
+            <li><a href="#faq" data-i18n="nav_faq">常见问题</a></li>
+            <li><a href="#comments-section" data-i18n="nav_comments">留言区</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="footer_official_title">官方资源</h4>
+          <ul>
+            <li><a href="https://www.thaievisa.go.th/" target="_blank" data-i18n="footer_official_evisa">泰国电子签证系统</a>
+            </li>
+            <li><a href="https://www.mfa.go.th/" target="_blank" data-i18n="footer_official_mfa">泰国外交部</a></li>
+            <li><a href="https://www.immigration.go.th/" target="_blank" data-i18n="footer_official_imm">泰国移民局</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-disclaimer" data-i18n-html="footer_disclaimer">
+        <strong>免责声明：</strong>本网站提供的信息仅供参考，不构成法律或签证建议。签证政策可能随时变动，请以泰国驻外使领馆和泰国移民局的最新官方信息为准。
+      </div>
+      <div class="footer-bottom">
+        <span data-i18n="footer_copyright">&copy; 2024-2025 DTV签证指南 | 信息更新至2025年3月</span>
+        <span data-i18n="footer_note">本站内容仅供参考 · 不代表官方立场</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="i18n.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

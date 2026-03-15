@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTV签证指南 - 管理后台</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background: #0a0e27;
+            color: #f0f0f5;
+        }
+
+        .admin-login {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-box {
+            background: #111638;
+            border: 1px solid rgba(212, 160, 23, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            width: min(400px, 90vw);
+        }
+
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #ffd84d;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+            color: #f0f0f5;
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            margin-bottom: 0.8rem;
+        }
+
+        .login-box input:focus {
+            border-color: #d4a017;
+        }
+
+        .login-box .error {
+            color: #ef5350;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            min-height: 1.2rem;
+        }
+
+        .admin-wrap {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background: #111638;
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1.5rem 0;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            padding: 0 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #ffd84d;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 0.8rem 1.5rem;
+            color: #a0a4c0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.2s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+        }
+
+        .nav-item:hover {
+            color: #ffd84d;
+            background: rgba(212, 160, 23, 0.08);
+        }
+
+        .nav-item.active {
+            color: #ffd84d;
+            background: rgba(212, 160, 23, 0.12);
+            border-right: 3px solid #d4a017;
+        }
+
+        .sidebar-footer {
+            padding: 1rem 1.5rem;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .sidebar-footer a {
+            color: #a0a4c0;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        /* Main */
+        .main {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .main h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #ffd84d;
+        }
+
+        /* Table */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .admin-table th {
+            background: rgba(212, 160, 23, 0.1);
+            color: #ffd84d;
+            font-weight: 600;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.8rem 1rem;
+            text-align: left;
+        }
+
+        .admin-table td {
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.88rem;
+            color: #a0a4c0;
+            vertical-align: middle;
+        }
+
+        .admin-table tr:hover td {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #ffd84d, #d4a017);
+            color: #0a0e27;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #ffd84d;
+            border: 1px solid rgba(212, 160, 23, 0.4);
+        }
+
+        .btn-outline:hover {
+            background: rgba(212, 160, 23, 0.1);
+        }
+
+        .btn-danger {
+            background: rgba(244, 67, 54, 0.15);
+            color: #ef5350;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+
+        .btn-danger:hover {
+            background: rgba(244, 67, 54, 0.25);
+        }
+
+        .btn-sm {
+            padding: 0.3rem 0.6rem;
+            font-size: 0.75rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 42px;
+            height: 22px;
+            cursor: pointer;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            transition: 0.3s;
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #a0a4c0;
+            bottom: 3px;
+            left: 3px;
+            transition: 0.3s;
+        }
+
+        .toggle-switch input:checked+.toggle-slider {
+            background: rgba(212, 160, 23, 0.3);
+        }
+
+        .toggle-switch input:checked+.toggle-slider::before {
+            transform: translateX(20px);
+            background: #ffd84d;
+        }
+
+        /* Modal */
+        .admin-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 100;
+            display: none;
+            backdrop-filter: blur(4px);
+        }
+
+        .admin-modal-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-modal {
+            background: #111638;
+            border: 1px solid rgba(212, 160, 23, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            width: min(700px, 92vw);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .admin-modal h3 {
+            margin-bottom: 1.2rem;
+            color: #ffd84d;
+        }
+
+        .admin-modal label {
+            display: block;
+            font-size: 0.85rem;
+            color: #a0a4c0;
+            margin-bottom: 0.3rem;
+            margin-top: 0.8rem;
+        }
+
+        .admin-modal input,
+        .admin-modal textarea,
+        .admin-modal select {
+            width: 100%;
+            padding: 0.7rem 0.8rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+            color: #f0f0f5;
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .admin-modal textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .admin-modal input:focus,
+        .admin-modal textarea:focus {
+            border-color: #d4a017;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        .stat-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.2rem;
+        }
+
+        .stat-card .stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffd84d;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.82rem;
+            color: #a0a4c0;
+            margin-top: 0.3rem;
+        }
+
+        .text-truncate {
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+            }
+
+            .sidebar-logo span,
+            .nav-item span {
+                display: none;
+            }
+
+            .nav-item {
+                padding: 0.8rem;
+                text-align: center;
+            }
+        }
+
+        .settings-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .settings-toggle label {
+            font-size: 0.9rem;
+            color: #c8cce0;
+            cursor: pointer;
+        }
+
+        .content-hint {
+            font-size: 0.75rem;
+            color: #6b6f8e;
+            margin-top: 0.3rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Login Screen -->
+    <div class="admin-login" id="admin-login">
+        <div class="login-box">
+            <h2>🔐 管理后台登录</h2>
+            <input type="text" id="admin-user" placeholder="管理员账号" value="admin">
+            <input type="password" id="admin-pass" placeholder="密码">
+            <div class="error" id="admin-error"></div>
+            <button class="btn btn-gold" style="width:100%;padding:0.8rem;" onclick="adminLogin()">登录</button>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-wrap" id="admin-panel" style="display:none;">
+        <nav class="sidebar">
+            <div class="sidebar-logo">🇹🇭 <span>管理后台</span></div>
+            <button class="nav-item active" onclick="switchTab('dashboard', this)">📊 <span>仪表盘</span></button>
+            <button class="nav-item" onclick="switchTab('sections', this)">📋 <span>板块管理</span></button>
+            <button class="nav-item" onclick="switchTab('cases', this)">📚 <span>教程案例</span></button>
+            <button class="nav-item" onclick="switchTab('knowledge', this)">🧠 <span>知识库</span></button>
+            <button class="nav-item" onclick="switchTab('comments', this)">💬 <span>留言管理</span></button>
+            <button class="nav-item" onclick="switchTab('users', this)">👥 <span>用户管理</span></button>
+            <button class="nav-item" onclick="switchTab('settings', this)">⚙️ <span>全局设置</span></button>
+            <div class="sidebar-footer">
+                <a href="/">← 返回前台</a>&nbsp;&nbsp;
+                <a href="#" onclick="adminLogout()">退出</a>
+            </div>
+        </nav>
+        <main class="main" id="main-content"></main>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="admin-modal-overlay" id="edit-modal">
+        <div class="admin-modal" id="edit-modal-content"></div>
+    </div>
+
+    <script>
+        let token = '';
+
+        async function adminLogin() {
+            const login = document.getElementById('admin-user').value;
+            const password = document.getElementById('admin-pass').value;
+            try {
+                const res = await fetch('/api/login', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ login, password })
+                });
+                const data = await res.json();
+                if (res.ok && data.user.role === 'admin') {
+                    document.getElementById('admin-login').style.display = 'none';
+                    document.getElementById('admin-panel').style.display = 'flex';
+                    switchTab('dashboard', document.querySelector('.nav-item'));
+                } else {
+                    document.getElementById('admin-error').textContent = data.error || '需要管理员权限';
+                }
+            } catch { document.getElementById('admin-error').textContent = '网络错误'; }
+        }
+
+        function adminLogout() {
+            fetch('/api/logout', { method: 'POST' });
+            location.reload();
+        }
+
+        function switchTab(tab, el) {
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            el.classList.add('active');
+            window['load_' + tab]();
+        }
+
+        // ---- Dashboard ----
+        async function load_dashboard() {
+            const [secRes, caseRes, kbRes, commentRes, userRes] = await Promise.all([
+                fetch('/api/admin/sections'), fetch('/api/admin/cases'), fetch('/api/admin/knowledge'),
+                fetch('/api/admin/comments'), fetch('/api/admin/users')
+            ]);
+            const [sec, cas, kb, com, usr] = await Promise.all([secRes.json(), caseRes.json(), kbRes.json(), commentRes.json(), userRes.json()]);
+            document.getElementById('main-content').innerHTML = `
+        <h2>📊 仪表盘</h2>
+        <div class="stat-cards">
+          <div class="stat-card"><div class="stat-value">${sec.sections.length}</div><div class="stat-label">板块数量</div></div>
+          <div class="stat-card"><div class="stat-value">${cas.cases.length}</div><div class="stat-label">教程案例</div></div>
+          <div class="stat-card"><div class="stat-value">${kb.items.length}</div><div class="stat-label">知识库条目</div></div>
+          <div class="stat-card"><div class="stat-value">${com.comments.length}</div><div class="stat-label">用户留言</div></div>
+          <div class="stat-card"><div class="stat-value">${usr.users.length}</div><div class="stat-label">注册用户</div></div>
+        </div>
+        <p style="color:#a0a4c0">🔑 默认管理员账号: admin / admin123（请及时修改密码）</p>
+        <p style="color:#a0a4c0;margin-top:0.5rem">📌 前台地址: <a href="/" style="color:#ffd84d">${window.location.origin}</a></p>
+      `;
+        }
+
+        // ---- Sections ----
+        async function load_sections() {
+            const res = await fetch('/api/admin/sections');
+            const data = await res.json();
+            document.getElementById('main-content').innerHTML = `
+        <h2>📋 板块管理</h2>
+        <p style="color:#a0a4c0;margin-bottom:1rem;">控制前台各板块的显示/隐藏</p>
+        <table class="admin-table"><thead><tr><th>板块</th><th>标识</th><th>显示</th></tr></thead><tbody>
+        ${data.sections.map(s => `<tr>
+          <td><strong>${s.title}</strong></td>
+          <td style="font-family:monospace;font-size:0.8rem;color:#6b6f8e">${s.section_key}</td>
+          <td><label class="toggle-switch"><input type="checkbox" ${s.visible ? 'checked' : ''} onchange="toggleSection(${s.id}, this.checked)"><span class="toggle-slider"></span></label></td>
+        </tr>`).join('')}
+        </tbody></table>
+      `;
+        }
+
+        async function toggleSection(id, visible) {
+            await fetch(`/api/admin/sections/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ visible }) });
+        }
+
+        // ---- Cases ----
+        async function load_cases() {
+            const [casesRes, settingsRes] = await Promise.all([
+                fetch('/api/admin/cases'),
+                fetch('/api/admin/settings')
+            ]);
+            const data = await casesRes.json();
+            const settings = await settingsRes.json();
+            const showSource = settings.settings?.show_source === '1';
+            const platformLabel = { youtube: 'YouTube', x: 'X/Twitter', xiaohongshu: '小红书' };
+            document.getElementById('main-content').innerHTML = `
+        <h2>📚 教程案例管理</h2>
+        <div class="settings-toggle">
+          <label class="toggle-switch"><input type="checkbox" ${showSource ? 'checked' : ''} onchange="toggleShowSource(this.checked)"><span class="toggle-slider"></span></label>
+          <label>显示出处和原文链接</label>
+        </div>
+        <button class="btn btn-gold" onclick="showAddCase()" style="margin-bottom:1rem">+ 添加案例</button>
+        <table class="admin-table"><thead><tr><th>标题</th><th>平台</th><th>作者</th><th>内容</th><th>显示</th><th>操作</th></tr></thead><tbody>
+        ${data.cases.map(c => `<tr>
+          <td class="text-truncate">${c.title}</td>
+          <td>${platformLabel[c.platform] || c.platform}</td>
+          <td>${c.author}</td>
+          <td style="font-size:0.78rem;color:${c.content ? '#4caf50' : '#ef5350'}">${c.content ? '✅ 已填写' : '❌ 未填写'}</td>
+          <td><label class="toggle-switch"><input type="checkbox" ${c.visible ? 'checked' : ''} onchange="toggleCase(${c.id}, this.checked)"><span class="toggle-slider"></span></label></td>
+          <td>
+            <button class="btn btn-outline btn-sm" onclick='editCase(${JSON.stringify(c).replace(/'/g, "\\\'")})'> 编辑</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteCase(${c.id})">删除</button>
+          </td>
+        </tr>`).join('')}
+        </tbody></table>
+      `;
+        }
+
+        async function toggleShowSource(checked) {
+            await fetch('/api/admin/settings/show_source', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ value: checked ? '1' : '0' })
+            });
+        }
+
+        async function toggleCase(id, visible) {
+            await fetch(`/api/admin/cases/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ visible }) });
+        }
+
+        function showAddCase() {
+            showEditModal('添加教程案例', `
+        <label>标题</label><input id="e-title">
+        <label>简介</label><textarea id="e-desc" style="min-height:60px"></textarea>
+        <label>详细内容 <small style="color:#6b6f8e">(支持Markdown格式)</small></label><textarea id="e-content" style="min-height:300px;font-family:monospace;font-size:0.85rem;"></textarea>
+        <label>平台</label><select id="e-platform"><option value="youtube">YouTube</option><option value="x">X/Twitter</option><option value="xiaohongshu">小红书</option></select>
+        <label>原文链接</label><input id="e-url">
+        <label>作者/出处</label><input id="e-author">
+        <label>标签(逗号分隔)</label><input id="e-tags">
+      `, async () => {
+                await fetch('/api/admin/cases', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+                        title: g('e-title'), description: g('e-desc'), content: g('e-content'), platform: g('e-platform'), url: g('e-url'), author: g('e-author'), tags: g('e-tags')
+                    })
+                });
+                closeEditModal(); load_cases();
+            });
+        }
+
+        function editCase(c) {
+            showEditModal('编辑教程案例', `
+        <label>标题</label><input id="e-title" value="${esc(c.title)}">
+        <label>简介</label><textarea id="e-desc" style="min-height:60px">${esc(c.description)}</textarea>
+        <label>详细内容 <small style="color:#6b6f8e">(支持Markdown格式)</small></label><textarea id="e-content" style="min-height:300px;font-family:monospace;font-size:0.85rem;">${esc(c.content || '')}</textarea>
+        <label>平台</label><select id="e-platform"><option value="youtube" ${c.platform === 'youtube' ? 'selected' : ''}>YouTube</option><option value="x" ${c.platform === 'x' ? 'selected' : ''}>X/Twitter</option><option value="xiaohongshu" ${c.platform === 'xiaohongshu' ? 'selected' : ''}>小红书</option></select>
+        <label>原文链接</label><input id="e-url" value="${esc(c.url)}">
+        <label>作者/出处</label><input id="e-author" value="${esc(c.author)}">
+        <label>标签</label><input id="e-tags" value="${esc(c.tags)}">
+      `, async () => {
+                await fetch(`/api/admin/cases/${c.id}`, {
+                    method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+                        title: g('e-title'), description: g('e-desc'), content: g('e-content'), platform: g('e-platform'), url: g('e-url'), author: g('e-author'), tags: g('e-tags')
+                    })
+                });
+                closeEditModal(); load_cases();
+            });
+        }
+
+        async function deleteCase(id) {
+            if (!confirm('确定删除此案例？')) return;
+            await fetch(`/api/admin/cases/${id}`, { method: 'DELETE' });
+            load_cases();
+        }
+
+        // ---- Knowledge ----
+        async function load_knowledge() {
+            const res = await fetch('/api/admin/knowledge');
+            const data = await res.json();
+            document.getElementById('main-content').innerHTML = `
+        <h2>🧠 知识库管理</h2>
+        <button class="btn btn-gold" onclick="showAddKB()" style="margin-bottom:1rem">+ 添加条目</button>
+        <table class="admin-table"><thead><tr><th>问题</th><th>分类</th><th>显示</th><th>操作</th></tr></thead><tbody>
+        ${data.items.map(k => `<tr>
+          <td class="text-truncate">${k.question}</td>
+          <td>${k.category}</td>
+          <td><label class="toggle-switch"><input type="checkbox" ${k.visible ? 'checked' : ''} onchange="toggleKB(${k.id}, this.checked)"><span class="toggle-slider"></span></label></td>
+          <td>
+            <button class="btn btn-outline btn-sm" onclick='editKB(${JSON.stringify(k).replace(/'/g, "\\'")})'>编辑</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteKB(${k.id})">删除</button>
+          </td>
+        </tr>`).join('')}
+        </tbody></table>
+      `;
+        }
+
+        async function toggleKB(id, visible) { await fetch(`/api/admin/knowledge/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ visible }) }); }
+
+        function showAddKB() {
+            showEditModal('添加知识条目', `
+        <label>问题</label><input id="e-question">
+        <label>回答</label><textarea id="e-answer"></textarea>
+        <label>分类</label><input id="e-category" value="general">
+      `, async () => {
+                await fetch('/api/admin/knowledge', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question: g('e-question'), answer: g('e-answer'), category: g('e-category') }) });
+                closeEditModal(); load_knowledge();
+            });
+        }
+
+        function editKB(k) {
+            showEditModal('编辑知识条目', `
+        <label>问题</label><input id="e-question" value="${esc(k.question)}">
+        <label>回答</label><textarea id="e-answer">${esc(k.answer)}</textarea>
+        <label>分类</label><input id="e-category" value="${esc(k.category)}">
+      `, async () => {
+                await fetch(`/api/admin/knowledge/${k.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question: g('e-question'), answer: g('e-answer'), category: g('e-category') }) });
+                closeEditModal(); load_knowledge();
+            });
+        }
+
+        async function deleteKB(id) { if (confirm('确定删除？')) { await fetch(`/api/admin/knowledge/${id}`, { method: 'DELETE' }); load_knowledge(); } }
+
+        // ---- Comments ----
+        async function load_comments() {
+            const res = await fetch('/api/admin/comments');
+            const data = await res.json();
+            document.getElementById('main-content').innerHTML = `
+        <h2>💬 留言管理</h2>
+        <table class="admin-table"><thead><tr><th>用户</th><th>内容</th><th>时间</th><th>显示</th><th>操作</th></tr></thead><tbody>
+        ${data.comments.map(c => `<tr>
+          <td>${c.username}</td>
+          <td class="text-truncate">${esc(c.content)}</td>
+          <td style="font-size:0.78rem">${new Date(c.created_at + 'Z').toLocaleString('zh-CN')}</td>
+          <td><label class="toggle-switch"><input type="checkbox" ${c.visible ? 'checked' : ''} onchange="toggleComment(${c.id}, this.checked)"><span class="toggle-slider"></span></label></td>
+          <td><button class="btn btn-danger btn-sm" onclick="deleteComment(${c.id})">删除</button></td>
+        </tr>`).join('')}
+        </tbody></table>
+      `;
+        }
+
+        async function toggleComment(id, visible) { await fetch(`/api/admin/comments/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ visible }) }); }
+        async function deleteComment(id) { if (confirm('确定删除？')) { await fetch(`/api/admin/comments/${id}`, { method: 'DELETE' }); load_comments(); } }
+
+        // ---- Users ----
+        async function load_users() {
+            const res = await fetch('/api/admin/users');
+            const data = await res.json();
+            document.getElementById('main-content').innerHTML = `
+        <h2>👥 用户管理</h2>
+        <table class="admin-table"><thead><tr><th>用户名</th><th>邮箱</th><th>角色</th><th>注册时间</th></tr></thead><tbody>
+        ${data.users.map(u => `<tr>
+          <td><strong>${u.username}</strong></td>
+          <td>${u.email}</td>
+          <td>${u.role === 'admin' ? '🔑 管理员' : '👤 用户'}</td>
+          <td style="font-size:0.78rem">${new Date(u.created_at + 'Z').toLocaleString('zh-CN')}</td>
+        </tr>`).join('')}
+        </tbody></table>
+      `;
+        }
+
+        // ---- Settings ----
+        async function load_settings() {
+            const res = await fetch('/api/admin/settings');
+            const data = await res.json();
+            const showSource = data.settings?.show_source === '1';
+            document.getElementById('main-content').innerHTML = `
+        <h2>⚙️ 全局设置</h2>
+        <div style="max-width:500px">
+          <div class="settings-toggle">
+            <label class="toggle-switch"><input type="checkbox" ${showSource ? 'checked' : ''} onchange="updateSetting('show_source', this.checked ? '1' : '0')"><span class="toggle-slider"></span></label>
+            <div>
+              <label style="font-weight:600;color:#ffd84d">显示出处和原文链接</label>
+              <div class="content-hint">开启后，案例详情页底部会显示平台来源、作者和原文链接</div>
+            </div>
+          </div>
+        </div>
+      `;
+        }
+
+        async function updateSetting(key, value) {
+            await fetch(`/api/admin/settings/${key}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ value })
+            });
+        }
+
+        // ---- Modal helpers ----
+        function showEditModal(title, content, onSave) {
+            document.getElementById('edit-modal-content').innerHTML = `
+        <h3>${title}</h3>${content}
+        <div class="modal-actions">
+          <button class="btn btn-outline" onclick="closeEditModal()">取消</button>
+          <button class="btn btn-gold" id="modal-save-btn">保存</button>
+        </div>
+      `;
+            document.getElementById('edit-modal').classList.add('active');
+            document.getElementById('modal-save-btn').onclick = onSave;
+        }
+
+        function closeEditModal() { document.getElementById('edit-modal').classList.remove('active'); }
+        function g(id) { return document.getElementById(id).value; }
+        function esc(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+        // Close modal on overlay click
+        document.getElementById('edit-modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeEditModal(); });
+
+        // Auto-check auth
+        (async () => {
+            try {
+                const res = await fetch('/api/me');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.user.role === 'admin') {
+                        document.getElementById('admin-login').style.display = 'none';
+                        document.getElementById('admin-panel').style.display = 'flex';
+                        switchTab('dashboard', document.querySelector('.nav-item'));
+                    }
+                }
+            } catch { }
+        })();
+    </script>
+</body>
+
+</html>

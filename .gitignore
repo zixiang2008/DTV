@@ -1,0 +1,7 @@
+node_modules/
+dtv.db
+dtv.db-shm
+dtv.db-wal
+.env
+*.log
+.DS_Store
