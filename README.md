@@ -1,3 +1,13 @@
+<!-- multilingual-project-guide:start -->
+<p align="center">
+  <strong>Multilingual project guide</strong><br>
+  <a href="PROJECT_GUIDE.md#简体中文">简体中文</a> ·
+  <a href="PROJECT_GUIDE.md#english">English</a> ·
+  <a href="PROJECT_GUIDE.md#日本語">日本語</a> ·
+  <a href="PROJECT_GUIDE.md#ภาษาไทย">ภาษาไทย</a>
+</p>
+<!-- multilingual-project-guide:end -->
+
 <p align="center">
   <img src="https://img.shields.io/badge/🇹🇭_Thailand-DTV_Visa_Guide-FFD700?style=for-the-badge&labelColor=003DA5" alt="DTV Visa Guide">
 </p>
